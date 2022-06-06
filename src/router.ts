@@ -1,3 +1,4 @@
+import { basename } from "path"
 import {createRouter,RouteRecordRaw,createWebHashHistory} from "vue-router"
 
 const routes:Array<RouteRecordRaw>=[
@@ -7,20 +8,15 @@ const routes:Array<RouteRecordRaw>=[
     component:()=>import('./page/login.vue')
   },
   {
-    path:"/portal",
+    path:"/portal/:chapters*",
     name:"portal",
     component:()=>import('./page/portal/portal.vue'),
     children:[
-      {
-        path:"/portal",
-        name:"home",
-        component:()=>import('./page/home/home.vue')
-      },
-      {
-        path:"/portal/user",
-        name:"user",
-        component:()=>import('./page/user/user.vue')
-      },
+      // {
+      //   path:"/portal",
+      //   name:"home",
+      //   component:()=>import('./page/home/home.vue')
+      // }
     ]
   }
 ]
@@ -28,6 +24,7 @@ const routes:Array<RouteRecordRaw>=[
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  
 })
 
 export default router

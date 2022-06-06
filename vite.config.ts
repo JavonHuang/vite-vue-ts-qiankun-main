@@ -4,6 +4,15 @@ import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server:{
+    cors:{
+      origin:true,
+      allowedHeaders:['Access-Control-Allow-Origin,*'],
+    },
+    fs:{
+      strict:false
+    }
+  },
   resolve:{
     alias:{
       '@': path.resolve(__dirname, './src'),

@@ -9,12 +9,17 @@
     </nav>
     <section>
       <router-view> </router-view>
+      <div id="yourContainer"></div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-
+  import {initQiankun} from '@/qiankun'
+  import { onMounted } from 'vue';
+  onMounted(()=>{
+    initQiankun();
+  })
 
 </script>
 
