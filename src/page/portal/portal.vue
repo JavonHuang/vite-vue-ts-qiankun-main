@@ -2,7 +2,7 @@
   <div class="portal">
     <header class="header">头部</header>
     <nav>
-    左侧菜单<br>
+    <div v-on:click="goSon">左侧菜单</div>
     London<br>
     Paris<br>
     Tokyo<br>
@@ -15,11 +15,19 @@
 </template>
 
 <script setup lang="ts">
+  import { useRouter } from 'vue-router'
   import {initQiankun} from '@/qiankun'
   import { onMounted } from 'vue';
+  const router = useRouter()
+
   onMounted(()=>{
     initQiankun();
   })
+
+
+  const goSon=()=>{
+    router.push({ path: '/portal/Home'})
+  }
 
 </script>
 
