@@ -2,31 +2,37 @@
   <div class="portal">
     <header class="header">头部</header>
     <nav>
-    <div v-on:click="goSon">左侧菜单</div>
-    London<br>
-    Paris<br>
-    Tokyo<br>
+    <div v-on:click="goSon('/portal/system/Home')">Home</div>
+   <div v-on:click="goSon('/portal/system/HelloWorld')">HelloWorld</div>
+       <div v-on:click="goSon('/portal/customer/Home')">Home</div>
+   <div v-on:click="goSon('/portal/customer/HelloWorld')">HelloWorld</div>
     </nav>
     <section>
       <router-view> </router-view>
-      <div id="yourContainer"></div>
+    <div id="yourContainer"></div>
+    <div id="yourContainer1"></div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
-  import {initQiankun} from '@/qiankun'
-  import { onMounted } from 'vue';
+  import {initQiankun,setData} from '@/qiankun'
+  import { onMounted,nextTick ,getCurrentInstance} from 'vue';
   const router = useRouter()
 
-  onMounted(()=>{
+  const _this: any = getCurrentInstance()
+
+  onMounted(() => {
+  nextTick(() => { 
     initQiankun();
+    setData("黄玉超");
+    })
   })
 
 
-  const goSon=()=>{
-    router.push({ path: '/portal/Home'})
+  const goSon=(url:string)=>{
+    router.push({ path: url})
   }
 
 </script>

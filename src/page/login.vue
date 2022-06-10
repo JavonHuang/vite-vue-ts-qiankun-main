@@ -13,14 +13,12 @@ import { computed, ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router'
 import {useStore} from "@/hooks/store"
 const router = useRouter()
-const {getters,state,commit}=useStore()
-const myname=computed(()=>getters['userModule/GettersUserItem'](28)?.name)
-const name=state.userModule.user[0].age
+const {commit}=useStore()
 
 const login=()=>{
   commit('loginModule/CommitIsLogin',true)
   commit('userModule/CommitUser',{
-    name:"黄玉超",
+    name:"Javon",
     age:28
   })
   router.push({ path: '/portal' ,query:{
