@@ -1,6 +1,6 @@
 <template>
   <div class="portal">
-    <header class="header">头部</header>
+    <header class="header">头部{{isLogin}}{{isSystem?"System":"System未注册"}}/{{isCustomer?"Customer注册":"Customer未注册"}}</header>
     <nav>
     <div v-on:click="goSon('/portal/system/Home')">Home</div>
    <div v-on:click="goSon('/portal/system/HelloWorld')">HelloWorld</div>
@@ -16,24 +16,38 @@
 </template>
 
 <script setup lang="ts">
-  import { useRouter } from 'vue-router'
-  import {initQiankun,setData} from '@/qiankun'
-  import { onMounted,nextTick ,getCurrentInstance} from 'vue';
-  const router = useRouter()
+import { mapState } from 'vuex'
+import { useRouter } from 'vue-router'
+import {initQiankun} from '@/qiankun'
+import { onMounted,nextTick ,getCurrentInstance,computed} from 'vue';
+import { useStore } from "@/hooks/store"
+import API from '@/API'
+import { debug } from 'util';
+const router = useRouter();
+const { commit, state,getters } = useStore();
+const store = useStore();
+const _this: any = getCurrentInstance();
+const isCustomer = state.globalModule.customer
+const isSystem = computed(() => state.globalModule.system)
+const isLogin = computed(() => getters['loginModule/GettersIsLogin'])
 
-  const _this: any = getCurrentInstance()
-
-  onMounted(() => {
-  nextTick(() => { 
-    initQiankun();
-    setData("黄玉超");
-    })
+onMounted(() => {
+nextTick(() => { 
+    getAPPList();
   })
+})
 
+//远程获取需要注册的微应用
+const getAPPList = () => { 
+  API.getAPPList({}).then(({ data: { models=[]} }) => { 
+    initQiankun(store, models);
+    commit('loginModule/CommitIsLogin',false)
+  })
+}
 
-  const goSon=(url:string)=>{
-    router.push({ path: url})
-  }
+const goSon=(url:string)=>{
+  router.push({ path: url})
+}
 
 </script>
 

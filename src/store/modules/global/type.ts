@@ -1,0 +1,1 @@
+export const GlobalINFO = 'GlobalINFO';

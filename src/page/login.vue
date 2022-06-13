@@ -13,7 +13,7 @@ import { computed, ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router'
 import {useStore} from "@/hooks/store"
 const router = useRouter()
-const {commit}=useStore()
+const { commit } = useStore()
 
 const login=()=>{
   commit('loginModule/CommitIsLogin',true)
