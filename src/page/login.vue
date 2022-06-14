@@ -2,6 +2,7 @@
   <div class="login">
     <div class="main">
       <div>
+        <img src="./../assets/logo.png"/>
         <el-button v-on:click="login" type="primary">登录</el-button>
       </div>
     </div>
@@ -35,10 +36,25 @@ const login=()=>{
   width:100%;
   display: flex;
   .main{
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 300px;
     margin: auto;
-    // background-color:rgb(228, 227, 227);
+    background-color:#fff;
+    border-radius: 4px;
+    opacity: 0.6;
+    padding: 10px 40px;
+    box-sizing:border-box;
+    &>div{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      img{
+        width: 150px;
+        height: 150px;
+        margin:10px auto;
+        margin-top: 50px;
+      }
+    }
   }
 }
 </style>

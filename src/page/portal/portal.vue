@@ -1,51 +1,93 @@
 <template>
   <div class="portal">
     <header class="header">头部{{isLogin}}{{isSystem?"System":"System未注册"}}/{{isCustomer?"Customer注册":"Customer未注册"}}</header>
-    <nav>
+    <div class="contain">
+      <div class="menu">
+        <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+          >
+          <el-menu-item index="1-1-1" v-on:click="goSon('/portal/system/Home')">system Home</el-menu-item>
+          <el-menu-item index="1-1-2" v-on:click="goSon('/portal/system/HelloWorld')">system HelloWorld</el-menu-item>
+          <el-menu-item index="1-1-3" v-on:click="goSon('/portal/system/HelloWorld/32ew')">system error</el-menu-item>
+          <el-menu-item index="1-2-1" v-on:click="goSon('/portal/customer/Home')">customer Home</el-menu-item>
+          <el-menu-item index="1-2-2" v-on:click="goSon('/portal/customer/HelloWorld')">customer HelloWorld</el-menu-item>
+          <el-menu-item index="1-2-3" v-on:click="goSon('/portal/customerrere/5445HelloWorld080988/080988')">customer error</el-menu-item>
+        </el-menu>
+      </div>
+      <div class="main">
+        <router-view> </router-view>
+        <div id="yourContainer"></div>
+        <div id="yourContainer1"></div>
+      </div>
+    </div>
+   <!-- <nav>
     <div v-on:click="goSon('/portal/system/Home')">Home</div>
    <div v-on:click="goSon('/portal/system/HelloWorld')">HelloWorld</div>
        <div v-on:click="goSon('/portal/customer/Home')">Home</div>
    <div v-on:click="goSon('/portal/customer/HelloWorld')">HelloWorld</div>
-    </nav>
-    <section>
-      <router-view> </router-view>
-    <div id="yourContainer"></div>
-    <div id="yourContainer1"></div>
-    </section>
+    </nav> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { mapState } from 'vuex'
-import { useRouter } from 'vue-router'
-import {initQiankun} from '@/qiankun'
-import { onMounted,nextTick ,getCurrentInstance,computed} from 'vue';
+import { useRouter,onBeforeRouteUpdate } from 'vue-router'
+import { onMounted, nextTick, computed } from 'vue';
 import { useStore } from "@/hooks/store"
+import {initQiankun} from '@/qiankun'
 import API from '@/API'
-import { debug } from 'util';
+import { ElLoading } from 'element-plus'
+
 const router = useRouter();
-const { commit, state,getters } = useStore();
+const {state,getters } = useStore();
 const store = useStore();
-const _this: any = getCurrentInstance();
 const isCustomer = state.globalModule.customer
-const isSystem = computed(() => state.globalModule.system)
+const isSystem = state.globalModule.system
 const isLogin = computed(() => getters['loginModule/GettersIsLogin'])
+let appList:Array<any> = [];
+let loadingInstance: any = null
+
+onBeforeRouteUpdate((to,from) => { 
+  console.log("portal", to)
+   checkRouter(appList,to.fullPath);
+})
 
 onMounted(() => {
-nextTick(() => { 
+  loadingInstance = ElLoading.service({
+    fullscreen: true,
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+
+  nextTick(() => { 
     getAPPList();
   })
 })
 
 //远程获取需要注册的微应用
 const getAPPList = () => { 
-  API.getAPPList({}).then(({ data: { models=[]} }) => { 
+  console.log("getAPPList",router.currentRoute.value);
+  API.getAPPList({}).then(({ data: { models = [] } }) => { 
+    appList = models;
     initQiankun(store, models);
-    commit('loginModule/CommitIsLogin',false)
+    loadingInstance.close();
+    checkRouter(models,router.currentRoute.value.fullPath);
   })
 }
 
-const goSon=(url:string)=>{
+const checkRouter = (models:Array<any>,fullPath:string) => { 
+  let result = models.some((item: any) => {
+    let regStr = item.mainRouterPath.replace(/\//g, '\\\/');
+      let reg = eval(`/^(${regStr})/`);
+      return reg.test(fullPath)
+  })
+  if (!result) { 
+    router.push({ path: '/404'})
+  }
+}
+
+const goSon = (url:any) => {
   router.push({ path: url})
 }
 
@@ -55,6 +97,24 @@ const goSon=(url:string)=>{
 .portal{
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  .contain{
+    display: flex;
+    height: 100%;
+    .menu{
+      width: 240px;
+      height: 100%;
+      .el-menu{
+        border: none;
+      }
+    }
+    .main{
+      width:100%;
+      height: 100%;
+      background-color: rgb(235, 235, 235);
+    }
+  }
   .header{
     height: 40px;
     line-height: 40px;

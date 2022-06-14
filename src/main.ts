@@ -6,7 +6,13 @@ import 'element-plus/dist/index.css'
 import router from './router';
 import store from './store/index';
 
-
+router.beforeEach((to, from) => {
+  if (!to.name) {
+    return { name: '404' }
+  } else { 
+    return true
+  }
+})
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)

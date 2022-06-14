@@ -3,7 +3,6 @@
 </script>
 <template>
   <router-view> </router-view>
-  <div id="yourContainer"></div>
 </template>
 <style>
 #app {
