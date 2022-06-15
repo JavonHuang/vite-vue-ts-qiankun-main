@@ -1,6 +1,13 @@
 import {  registerMicroApps, start,addGlobalUncaughtErrorHandler } from 'qiankun';
 import qiankunStore from './qiankunState';
-import { StoreUtil} from '@/hooks/utils';
+import { StoreUtil } from '@/hooks/utils';
+declare global {  //设置全局属性
+  interface Window {  //window对象属性
+    qiankunStarted: boolean;   //加入对象
+  }
+}
+window.qiankunStarted=false
+
 interface IAPP { 
   name: string,
   entry: string,
@@ -27,12 +34,21 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>) => {
   })
 
   registerMicroApps([...appList], {
-    beforeLoad:[async (app) => console.log('before load', app.name)],
-    beforeMount: [async (app) => console.log('before mount', app.name)],
+    beforeMount: [async (app:any) => { 
+      let dom = document.getElementById(app.container.replace('#',''));
+      dom?.setAttribute('style','display:block');
+    }],
+    afterUnmount: [async (app: any) => { 
+      let dom = document.getElementById(app.container.replace('#',''));
+      dom?.setAttribute('style','display:none')
+    }],
   });
-  start({
-    prefetch :true
-  });
+  if (!window.qiankunStarted) {
+    window.qiankunStarted = true;
+    start({
+      prefetch :true
+    });
+  }
 }
 
 addGlobalUncaughtErrorHandler((handler) => {

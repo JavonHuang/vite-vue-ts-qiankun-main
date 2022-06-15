@@ -22,7 +22,7 @@ const login=()=>{
     name:"Javon",
     age:28
   })
-  router.push({ path: '/portal' ,query:{
+  router.push({ path: '/portal/main' ,query:{
     test:"huhi"
   }})
 }

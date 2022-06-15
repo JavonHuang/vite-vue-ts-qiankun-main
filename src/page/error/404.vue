@@ -1,6 +1,5 @@
 <template>
-  <div>
-    主应用错误页404
+  <div class="error-404">
   </div>
 </template>
 
@@ -10,5 +9,14 @@
 </script>
 
 <style lang="scss" scoped>
-
+.error-404{
+  background:url('./../../assets/404.webp');
+  background-repeat: no-repeat;
+  background-size:auto 100%;
+  background-position: center;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
 </style>

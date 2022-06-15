@@ -10,7 +10,17 @@ const routes:Array<RouteRecordRaw>=[
     path:"/portal/:chapters*",
     name:"portal",
     component:()=>import('./page/portal/portal.vue'),
-    children:[
+    children: [
+      {
+        path:"/portal/main",
+        name:"main",
+        component:()=>import('./page/portal/main.vue'),
+      },
+      {
+        path:"/portal/home",
+        name:"home",
+        component:()=>import('./page/home/home.vue'),
+      },
     ]
   },
   {
