@@ -72,7 +72,9 @@ onMounted(() => {
 const getAPPList = () => { 
   API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
-    initQiankun(store, models);
+    initQiankun(store, models, (e) => { 
+      router.push({ path: '/404'})
+    });
     loadingInstance.close();
     checkRouter(models,router.currentRoute.value.fullPath,router.currentRoute.value.name);
   })
