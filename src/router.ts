@@ -25,12 +25,12 @@ const routes:Array<RouteRecordRaw>=[
   },
   {
     path:"/404",
-    name:"404",
+    name:"error",
     component:()=>import('./page/portal/portal.vue'),
     children:[
       {
         path:"/404",
-        name:"error",
+        name:"404",
         component:()=>import('./page/error/404.vue')
       },
     ]

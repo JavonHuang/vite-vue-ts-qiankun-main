@@ -6,7 +6,7 @@
         <span>乾坤主框架</span>
       </div>
       <div class="right">
-        <div>头部{{isLogin}}{{isSystem?"System":"System未注册"}}/{{isCustomer?"Customer注册":"Customer未注册"}}</div>
+        <div>{{isLogin?"已登录":"未登录"}}</div>
         <div v-on:click="goSon('/')">退出</div>
       </div>
     </header>
@@ -43,10 +43,8 @@ import API from '@/API'
 import { ElLoading } from 'element-plus'
 
 const router = useRouter();
-const {state,getters } = useStore();
+const {getters } = useStore();
 const store = useStore();
-const isCustomer = state.globalModule.customer
-const isSystem = state.globalModule.system
 const isLogin = computed(() => getters['loginModule/GettersIsLogin'])
 let appList:Array<any> = [];
 let loadingInstance: any = null
@@ -72,8 +70,8 @@ onMounted(() => {
 const getAPPList = () => { 
   API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
-    initQiankun(store, models, (e) => { 
-      router.push({ path: '/404'})
+    initQiankun(store, models, (e:any) => { 
+      router.push({ name: '404', params: e})
     });
     loadingInstance.close();
     checkRouter(models,router.currentRoute.value.fullPath,router.currentRoute.value.name);

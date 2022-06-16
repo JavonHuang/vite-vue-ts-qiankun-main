@@ -1,11 +1,16 @@
 <template>
   <div class="error-404">
+    <div class="msg">
+      {{routeMsg.name?`应用${routeMsg.name}加载异常，请联系管理员...`:`页面不存在...`}}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-  defineProps<{ msg: string }>()
+import { useRoute } from 'vue-router'
+import { reactive, ref } from 'vue'
+const route = useRoute();
+let routeMsg = reactive(route.params);
 </script>
 
 <style lang="scss" scoped>
@@ -18,5 +23,13 @@
   height: 100%;
   width: 100%;
   text-align: center;
+  position: relative;
+  .msg{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    font-size: 20px;
+  }
 }
 </style>
