@@ -82,15 +82,7 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(app:IAPP)=>v
   if (!window.qiankunStarted) {
     window.qiankunStarted = true;
     start({
-      prefetch :true
+      prefetch: true
     });
-    // addGlobalUncaughtErrorHandler((handler) => {
-    //   // error(handler)
-    //   if (loadingInstance) { 
-    //     loadingInstance.close();
-    //     loadingInstance = null;
-    //   }
-    //   console.log(handler)
-    // });
   }
 }
