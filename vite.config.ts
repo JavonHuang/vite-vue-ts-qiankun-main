@@ -22,7 +22,6 @@ export default ({ mode }) => {
     },
     build: {
       assetsDir: 'assets',
-      
       // lib:{
       //   entry: path.resolve(__dirname, 'index.html'),
       //   name: 'MyLib',
