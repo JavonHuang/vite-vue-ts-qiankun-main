@@ -1,9 +1,33 @@
-<script setup lang="ts">
-
-</script>
 <template>
   <router-view> </router-view>
 </template>
+<script setup lang="ts">
+import { onBeforeMount } from 'vue';
+import API from '@/API'
+onBeforeMount(()=>{
+  API.getLibList({}).then(({ data: { models = [] } }) => {
+    models.forEach((item:any)=>{
+      loadScript(item.js)
+      loadCss(item.css)
+    })
+  })
+})
+
+const loadScript=(url:string)=>{
+  let scriptDom = document.createElement('script')
+  scriptDom.type = 'text/javascript';
+  scriptDom.src = url;
+  document.body.append(scriptDom);
+}
+
+const loadCss=(url:string)=>{
+  let linkDom = document.createElement('link')
+  linkDom.rel = 'stylesheet';
+  linkDom.href = url;
+  document.body.append(linkDom);
+}
+
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

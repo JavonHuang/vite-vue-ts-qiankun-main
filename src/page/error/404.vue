@@ -1,7 +1,9 @@
 <template>
   <div class="error-404">
     <div class="msg">
-      {{routeMsg.name?`应用${routeMsg.name}加载异常，请联系管理员...`:`页面不存在...`}}
+      <span>{{routeMsg.name?`应用${routeMsg.name}加载异常，请联系管理员...`:`页面不存在...`}}</span>
+      <br/>
+      <span>{{routeMsg.message}}</span>
     </div>
   </div>
 </template>

@@ -22,6 +22,5 @@ app.mount('#app')
 console.log(import.meta.env.BASE_URL)
 console.log(import.meta.env.VITE_BASE_URL)
 
-// setTimeout(() => { 
-//   qiankunStore.setGlobalState({ name:"黄玉超"})
-// },2000)
+
+

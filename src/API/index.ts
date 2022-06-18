@@ -8,5 +8,12 @@ export default {
       url: "/qiankun/appList",
       data:params
     })
+  },
+  getLibList(params:any) { 
+    return request({
+      method: "post",
+      url: "/qiankun/lib",
+      data:params
+    })
   }
 }

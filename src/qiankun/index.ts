@@ -16,7 +16,7 @@ interface IAPP {
   mainRouterPath: string,
   isFirst:Boolean,
 }
-export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(app:IAPP)=>void) => {
+export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void) => {
   qiankunStore.init(store)
   let appList: any = [];
   let loadingInstance: any;
@@ -41,12 +41,13 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(app:IAPP)=>v
             background: 'rgba(0, 0, 0, 0.7)',
           })
           item.isFirst = false;
-          errorFunction[item.name] = (handler: any) => { 
+          errorFunction[item.name] = (handler: any) => {
+            console.log(handler)
             let appOrParcelName = "";
             appOrParcelName = handler.reason && handler.reason.appOrParcelName
             appOrParcelName=handler.error && handler.error.appOrParcelName
             if (appOrParcelName==item.name) { 
-              error(item)
+              error({...item,message:handler.message})
               if (loadingInstance) { 
                 loadingInstance.close();
                 loadingInstance = null;
