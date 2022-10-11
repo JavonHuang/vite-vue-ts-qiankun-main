@@ -23,12 +23,14 @@
           <el-menu-item index="1-2-1" v-on:click="goSon('/portal/customer/Home')">customer Home</el-menu-item>
           <el-menu-item index="1-2-2" v-on:click="goSon('/portal/customer/HelloWorld')">customer HelloWorld</el-menu-item>
           <el-menu-item index="1-2-3" v-on:click="goSon('/portal/customerrere/5445HelloWorld080988/080988')">customer error</el-menu-item>
+          <el-menu-item index="1-2-3" v-on:click="goSon('/portal/personal/home')">personal home</el-menu-item>
         </el-menu>
       </div>
       <div class="main">
         <router-view class="router-app"> </router-view>
         <div id="yourContainer" class="qiankun-app"></div>
         <div id="yourContainer1" class="qiankun-app"></div>
+        <div id="yourContainer2" class="qiankun-app"></div>
       </div>
     </div>
   </div>

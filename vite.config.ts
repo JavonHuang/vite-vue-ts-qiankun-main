@@ -6,7 +6,8 @@ import * as path from 'path';
 export default ({ mode }) => { 
   return defineConfig({
     base: '',
-    server:{
+    server: {
+      port:3001,
       cors:{
         origin:true,
         allowedHeaders:['Access-Control-Allow-Origin,*'],
