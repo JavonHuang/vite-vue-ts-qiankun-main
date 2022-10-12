@@ -16,14 +16,36 @@
             default-active="2"
             class="el-menu-vertical-demo"
           >
-          <el-menu-item index="1-1-1" v-on:click="goSon('/portal/home')">主应用 Home</el-menu-item>
-          <el-menu-item index="1-1-1" v-on:click="goSon('/portal/system/Home')">system Home</el-menu-item>
-          <el-menu-item index="1-1-2" v-on:click="goSon('/portal/system/HelloWorld')">system HelloWorld</el-menu-item>
-          <el-menu-item index="1-1-3" v-on:click="goSon('/portal/system/HelloWorld/32ew')">system error</el-menu-item>
-          <el-menu-item index="1-2-1" v-on:click="goSon('/portal/customer/Home')">customer Home</el-menu-item>
-          <el-menu-item index="1-2-2" v-on:click="goSon('/portal/customer/HelloWorld')">customer HelloWorld</el-menu-item>
-          <el-menu-item index="1-2-3" v-on:click="goSon('/portal/customerrere/5445HelloWorld080988/080988')">customer error</el-menu-item>
-          <el-menu-item index="1-2-3" v-on:click="goSon('/portal/personal/home')">personal home</el-menu-item>
+          <el-sub-menu index="1">
+            <template #title>
+              <span>主应用页面</span>
+            </template>
+            <el-menu-item index="1-1" v-on:click="goSon('/portal/home')">主应用 Home</el-menu-item>
+          </el-sub-menu>
+          <el-sub-menu index="2">
+            <template #title>
+              <span>system页面</span>
+            </template>
+            <el-menu-item index="2-1" v-on:click="goSon('/portal/system/Home')">system Home</el-menu-item>
+            <el-menu-item index="2-2" v-on:click="goSon('/portal/system/HelloWorld')">system HelloWorld</el-menu-item>
+            <el-menu-item index="2-3" v-on:click="goSon('/portal/system/HelloWorld/32ew')">system error</el-menu-item>
+          </el-sub-menu>
+          <el-sub-menu index="3">
+            <template #title>
+              <span>customer页面</span>
+            </template>
+            <el-menu-item index="3-1" v-on:click="goSon('/portal/customer/Home')">customer Home</el-menu-item>
+            <el-menu-item index="3-2" v-on:click="goSon('/portal/customer/HelloWorld')">customer HelloWorld</el-menu-item>
+            <el-menu-item index="3-3" v-on:click="goSon('/portal/customerrere/5445HelloWorld080988/080988')">customer error</el-menu-item>
+          </el-sub-menu>
+          <el-sub-menu index="4">
+            <template #title>
+              <span>personal页面</span>
+            </template>
+            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">personal home</el-menu-item>
+            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
+
+          </el-sub-menu>
         </el-menu>
       </div>
       <div class="main">

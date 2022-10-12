@@ -6,10 +6,10 @@ import { onBeforeMount } from 'vue';
 import API from '@/API'
 onBeforeMount(()=>{
   API.getLibList({}).then(({ data: { models = [] } }) => {
-    models.forEach((item:any)=>{
-      loadScript(item.js)
-      loadCss(item.css)
-    })
+    // models.forEach((item:any)=>{
+    //   loadScript(item.js)
+    //   loadCss(item.css)
+    // })
   })
 })
 
