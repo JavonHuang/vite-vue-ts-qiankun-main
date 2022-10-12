@@ -2,6 +2,7 @@
   <div>
     home页面
     <div>{{isLogin?'已登录':'未登录'}}</div>
+    <el-button>默认按钮</el-button>
   </div>
 </template>
 

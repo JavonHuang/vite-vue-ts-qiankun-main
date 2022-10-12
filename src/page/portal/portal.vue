@@ -92,7 +92,7 @@ onMounted(() => {
 
 //远程获取需要注册的微应用
 const getAPPList = () => { 
-  API.getAPPList1({}).then(({ data: { models = [] } }) => { 
+  API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})
