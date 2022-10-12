@@ -43,8 +43,8 @@
               <span>personal页面</span>
             </template>
             <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">personal home</el-menu-item>
-            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
-
+            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/test')">路由传参</el-menu-item>
+            <el-menu-item index="4-20" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </div>
@@ -92,7 +92,7 @@ onMounted(() => {
 
 //远程获取需要注册的微应用
 const getAPPList = () => { 
-  API.getAPPList({}).then(({ data: { models = [] } }) => { 
+  API.getAPPList1({}).then(({ data: { models = [] } }) => { 
     appList = models;
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})
