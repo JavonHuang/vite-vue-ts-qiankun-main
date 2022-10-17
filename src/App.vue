@@ -4,12 +4,19 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue';
 import API from '@/API'
+import { useRouter } from 'vue-router'
+
+//注册全局路由，供子应用调用
+const router = useRouter();
+window.rootRouter = router;
+
+
 onBeforeMount(()=>{
   API.getLibList({}).then(({ data: { models = [] } }) => {
-    // models.forEach((item:any)=>{
-    //   loadScript(item.js)
-    //   loadCss(item.css)
-    // })
+    models.forEach((item:any)=>{
+      loadScript(item.js)
+      loadCss(item.css)
+    })
   })
 })
 

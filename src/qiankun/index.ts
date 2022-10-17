@@ -2,6 +2,7 @@ import {  registerMicroApps, start,addGlobalUncaughtErrorHandler } from 'qiankun
 import qiankunStore from './qiankunState';
 import { StoreUtil } from '@/hooks/utils';
 import { ElLoading, FIRST_LAST_KEYS } from 'element-plus'
+import { truncate } from 'fs';
 
 window.qiankunStarted=false
 
@@ -79,7 +80,11 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
   if (!window.qiankunStarted) {
     window.qiankunStarted = true;
     start({
-      prefetch: true
+      prefetch: true,
+      sandbox: {
+        // strictStyleIsolation: true,
+        // experimentalStyleIsolation: true,
+      },
     });
   }
 }

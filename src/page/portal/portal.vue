@@ -42,8 +42,8 @@
             <template #title>
               <span>personal页面</span>
             </template>
-            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">personal home</el-menu-item>
-            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/test')">路由传参</el-menu-item>
+            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">子应用间路由传参</el-menu-item>
+            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/VueComponent')">react项目使用Vue组件</el-menu-item>
             <el-menu-item index="4-20" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
           </el-sub-menu>
         </el-menu>
@@ -115,7 +115,12 @@ const checkRouter = (models:Array<any>,fullPath:string,name:any) => {
 }
 
 const goSon = (url:any) => {
-  router.push({ path: url})
+  router.push({ 
+    path: url,
+    params: {
+      "name":"Javon_huang"
+    }
+  })
 }
 
 </script>
