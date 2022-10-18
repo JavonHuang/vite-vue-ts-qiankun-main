@@ -43,7 +43,12 @@
               <span>personal页面</span>
             </template>
             <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">子应用间路由传参</el-menu-item>
-            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/VueComponent')">react项目使用Vue组件</el-menu-item>
+            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/VueComponent')">react项目使用Vue组件</el-menu-item>
+            <el-menu-item index="4-3" v-on:click="goSon('/portal/personal/lifecycle')">组件生命周期测试</el-menu-item>
+            <el-menu-item index="4-4" v-on:click="goSon('/portal/personal/useContextTest')">useContext测试</el-menu-item>
+            <el-menu-item index="4-5" v-on:click="goSon('/portal/personal/useDiy')">useDiy自定义hook</el-menu-item>
+            <el-menu-item index="4-6" v-on:click="goSon('/portal/personal/useMemoTest')">useMemoTest测试</el-menu-item>
+            <el-menu-item index="4-7" v-on:click="goSon('/portal/personal/useReducerTest')">useReducer测试</el-menu-item>
             <el-menu-item index="4-20" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
           </el-sub-menu>
         </el-menu>
@@ -125,7 +130,7 @@ const goSon = (url:any) => {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .portal{
   height: 100%;
   width: 100%;
@@ -159,6 +164,9 @@ const goSon = (url:any) => {
         height: 100%;
         display: none;
         background-color: #fff;
+        &>div{
+          height: 100%!important;
+        }
       }
     }
   }
