@@ -1,7 +1,8 @@
 const StateData = () => {// 使用函数返回数据源
   return {
     system: false,
-    customer:false
+    customer: false,
+    appList:[]
   }
 }
 export type State = ReturnType<typeof StateData>;

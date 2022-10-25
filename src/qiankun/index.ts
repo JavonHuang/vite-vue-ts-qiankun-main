@@ -82,6 +82,7 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
     start({
       prefetch: true,
       sandbox: {
+        //未成熟
         // strictStyleIsolation: true,
         // experimentalStyleIsolation: true,
       },

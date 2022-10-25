@@ -51,6 +51,13 @@
             <el-menu-item index="4-7" v-on:click="goSon('/portal/personal/useReducerTest')">useReducer测试</el-menu-item>
             <el-menu-item index="4-20" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
           </el-sub-menu>
+          <el-sub-menu index="5">
+            <template #title>
+              <span>vitevue页面</span>
+            </template>
+            <el-menu-item index="5-1" v-on:click="goSon('/portal/vitevue/login')">子应用间路由传参</el-menu-item>
+           
+          </el-sub-menu>
         </el-menu>
       </div>
       <div class="main">
@@ -58,6 +65,7 @@
         <div id="yourContainer" class="qiankun-app"></div>
         <div id="yourContainer1" class="qiankun-app"></div>
         <div id="yourContainer2" class="qiankun-app"></div>
+        <div id="yourContainer3" class="qiankun-app"></div>
       </div>
     </div>
   </div>
@@ -72,14 +80,15 @@ import API from '@/API'
 import { ElLoading } from 'element-plus'
 
 const router = useRouter();
-const {getters } = useStore();
+const {getters,commit } = useStore();
 const store = useStore();
 const isLogin = computed(() => getters['loginModule/GettersIsLogin'])
-let appList:Array<any> = [];
+let appList:any=[]
 let loadingInstance: any = null
 
-onBeforeRouteUpdate((to,from) => { 
-   checkRouter(appList,to.fullPath,to.name);
+onBeforeRouteUpdate((to, from) => { 
+  // console.log(to)
+  //  checkRouter(appList,to.fullPath,to.name);
 })
 
 onMounted(() => {
@@ -97,24 +106,26 @@ onMounted(() => {
 
 //远程获取需要注册的微应用
 const getAPPList = () => { 
-  API.getAPPList({}).then(({ data: { models = [] } }) => { 
+  API.getAPPList1({}).then(({ data: { models = [] } }) => { 
     appList = models;
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})
     });
     loadingInstance.close();
-    checkRouter(models,router.currentRoute.value.fullPath,router.currentRoute.value.name);
+    commit('globalModule/GppList',appList)
+    checkRouter(appList,router.currentRoute.value.fullPath,router.currentRoute.value.name);
+    
   })
 }
 
 //校验路由
-const checkRouter = (models:Array<any>,fullPath:string,name:any) => { 
+const checkRouter = (models:[], fullPath: string, name: any) => { 
   let result = models.some((item: any) => {
     let regStr = (item.mainRouterPath+"/").replace(/\//g, '\\\/');
       let reg = eval(`/^(${regStr})/`);
       return reg.test(fullPath)
   })
-  if (!result && !name) { 
+  if (!result && (!name||name==='portal')) { 
     router.push({ path: '/404'})
   }
 }
@@ -136,12 +147,16 @@ const goSon = (url:any) => {
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   .contain{
     display: flex;
     height: 100%;
+    overflow: hidden;
     .menu{
       width: 240px;
       height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
       .el-menu{
         border: none;
       }
