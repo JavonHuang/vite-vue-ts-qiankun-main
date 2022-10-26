@@ -28,7 +28,7 @@
             </template>
             <el-menu-item index="2-1" v-on:click="goSon('/portal/system/Home')">system Home</el-menu-item>
             <el-menu-item index="2-2" v-on:click="goSon('/portal/system/HelloWorld')">system HelloWorld</el-menu-item>
-            <el-menu-item index="2-3" v-on:click="goSon('/portal/system/HelloWorld/32ew')">system error</el-menu-item>
+            <el-menu-item index="2-3" v-on:click="goSon('/portal/system/HelloWorld2/32ew')">system error</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
@@ -88,7 +88,7 @@ let loadingInstance: any = null
 
 onBeforeRouteUpdate((to, from) => { 
   // console.log(to)
-  //  checkRouter(appList,to.fullPath,to.name);
+   checkRouter(appList,to.fullPath,to.name);
 })
 
 onMounted(() => {
@@ -126,7 +126,7 @@ const checkRouter = (models:[], fullPath: string, name: any) => {
       return reg.test(fullPath)
   })
   if (!result && (!name||name==='portal')) { 
-    router.push({ path: '/404'})
+    router.push({ path: '/404',replace:true})
   }
 }
 
