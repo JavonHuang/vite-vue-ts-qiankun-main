@@ -18,6 +18,7 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
   let appList: any = [];
   let loadingInstance: any;
   let errorFunction: any = {};
+  let domMain = document.getElementById('qiankunContainer');
   list.forEach(item => {
     item.isFirst = true;
     appList.push({
@@ -27,7 +28,10 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
       props: {
         mainRouterPath: item.mainRouterPath,
         getGlobalState: qiankunStore.getGlobalState,
-        errorRouter:'/404'
+        errorRouter: '/404',
+        recordRouterPath: (arrayPath: Array<string>) => {
+          console.log(arrayPath)
+        }
       },
       activeRule: (e: Location) => {
         if ( e.hash.includes(item.mainRouterPath) && item.isFirst) { 
@@ -56,14 +60,19 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
         return e.hash.includes(item.mainRouterPath);
       },
     })
+    // let dom = document.createElement('div');
+    // dom.classList.add('qiankun-app')
+    // dom?.setAttribute('style', 'display:none')
+    // dom?.setAttribute('id',item.container.replace('#', ''))
+    // domMain?.append(dom)
   })
 
   registerMicroApps([...appList], {
     beforeLoad: [async (app: any) => { 
       console.log('beforeLoad',app)
     }],
-    beforeMount: [async (app:any) => { 
-      let dom = document.getElementById(app.container.replace('#',''));
+    beforeMount: [async (app: any) => { 
+      let dom = document.getElementById(app.container.replace('#', ''));
       dom?.setAttribute('style','display:block');
     }],
     afterMount: [async (app: any) => { 

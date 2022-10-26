@@ -4,7 +4,8 @@ import { StoreUtil } from '@/hooks/utils';
 
 let globalState:IglobalState = {
   system: false,
-  customer:false
+  customer: false,
+  appList:[]
 }
 
 

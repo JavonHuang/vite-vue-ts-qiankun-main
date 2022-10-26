@@ -60,7 +60,7 @@
           </el-sub-menu>
         </el-menu>
       </div>
-      <div class="main">
+      <div id="qiankunContainer" class="main">
         <router-view class="router-app"> </router-view>
         <div id="yourContainer" class="qiankun-app"></div>
         <div id="yourContainer1" class="qiankun-app"></div>
@@ -106,7 +106,7 @@ onMounted(() => {
 
 //远程获取需要注册的微应用
 const getAPPList = () => { 
-  API.getAPPList1({}).then(({ data: { models = [] } }) => { 
+  API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})

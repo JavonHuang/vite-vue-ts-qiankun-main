@@ -30,10 +30,11 @@ const checkRouter = (models:[], fullPath: string, name: any) => {
 
 ///路由守卫
 router.beforeEach((to, from, next) => {
+  console.log(checkRouter(appList.value, to.fullPath, to.name))
   if (checkRouter(appList.value, to.fullPath, to.name)) {
     next()
   } else { 
-    router.push({ path: '/404'})
+    router.push({ path: '/404',replace:true})
   }
 })
 

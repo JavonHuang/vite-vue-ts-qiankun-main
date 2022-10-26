@@ -35,6 +35,7 @@ const routes:Array<RouteRecordRaw>=[
       },
     ]
   },
+  { path: '/:pathMatch(.*)', redirect: '/404' }
 ]
 
 const router = createRouter({
@@ -42,4 +43,4 @@ const router = createRouter({
   routes,
 })
 
-export default router
+export {routes, router }
