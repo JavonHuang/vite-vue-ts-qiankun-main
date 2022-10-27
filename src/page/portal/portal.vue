@@ -7,7 +7,7 @@
       </div>
       <div class="right">
         <div>{{isLogin?"已登录":"未登录"}}</div>
-        <div v-on:click="goSon('/')">退出</div>
+        <div v-on:click="goSon('/login')">退出</div>
       </div>
     </header>
     <div class="contain">
@@ -20,58 +20,59 @@
             <template #title>
               <span>主应用页面</span>
             </template>
-            <el-menu-item index="1-1" v-on:click="goSon('/portal/home')">主应用 Home</el-menu-item>
+            <el-menu-item index="1-1" v-on:click="goSon('/home')">主应用 Home</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
               <span>system页面</span>
             </template>
-            <el-menu-item index="2-1" v-on:click="goSon('/portal/system/Home')">system Home</el-menu-item>
-            <el-menu-item index="2-2" v-on:click="goSon('/portal/system/HelloWorld')">system HelloWorld</el-menu-item>
-            <el-menu-item index="2-3" v-on:click="goSon('/portal/system/HelloWorld2/32ew')">system error</el-menu-item>
+            <el-menu-item index="2-1" v-on:click="goSon('/system/Home')">system Home</el-menu-item>
+            <el-menu-item index="2-2" v-on:click="goSon('/system/HelloWorld')">system HelloWorld</el-menu-item>
+            <el-menu-item index="2-3" v-on:click="goSon('/system/HelloWorld34/32ew')">system error</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
               <span>customer页面</span>
             </template>
-            <el-menu-item index="3-1" v-on:click="goSon('/portal/customer/Home')">customer Home</el-menu-item>
-            <el-menu-item index="3-2" v-on:click="goSon('/portal/customer/HelloWorld')">customer HelloWorld</el-menu-item>
-            <el-menu-item index="3-3" v-on:click="goSon('/portal/customerrere/5445HelloWorld080988/080988')">customer error</el-menu-item>
+            <el-menu-item index="3-1" v-on:click="goSon('/customer/Home')">customer Home</el-menu-item>
+            <el-menu-item index="3-2" v-on:click="goSon('/customer/HelloWorld')">customer HelloWorld</el-menu-item>
+            <el-menu-item index="3-3" v-on:click="goSon('/customer/HelloWorld23/080988')">customer error</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="4">
             <template #title>
               <span>personal页面</span>
             </template>
-            <el-menu-item index="4-1" v-on:click="goSon('/portal/personal/home')">子应用间路由传参</el-menu-item>
-            <el-menu-item index="4-2" v-on:click="goSon('/portal/personal/VueComponent')">react项目使用Vue组件</el-menu-item>
-            <el-menu-item index="4-3" v-on:click="goSon('/portal/personal/lifecycle')">组件生命周期测试</el-menu-item>
-            <el-menu-item index="4-4" v-on:click="goSon('/portal/personal/useContextTest')">useContext测试</el-menu-item>
-            <el-menu-item index="4-5" v-on:click="goSon('/portal/personal/useDiy')">useDiy自定义hook</el-menu-item>
-            <el-menu-item index="4-6" v-on:click="goSon('/portal/personal/useMemoTest')">useMemoTest测试</el-menu-item>
-            <el-menu-item index="4-7" v-on:click="goSon('/portal/personal/useReducerTest')">useReducer测试</el-menu-item>
-            <el-menu-item index="4-20" v-on:click="goSon('/portal/personal/080988')">personal error</el-menu-item>
+            <el-menu-item index="4-1" v-on:click="goSon('/personal/home')">子应用间路由传参</el-menu-item>
+            <el-menu-item index="4-2" v-on:click="goSon('/personal/VueComponent')">react项目使用Vue组件</el-menu-item>
+            <el-menu-item index="4-3" v-on:click="goSon('/personal/lifecycle')">组件生命周期测试</el-menu-item>
+            <el-menu-item index="4-4" v-on:click="goSon('/personal/useContextTest')">useContext测试</el-menu-item>
+            <el-menu-item index="4-5" v-on:click="goSon('/personal/useDiy')">useDiy自定义hook</el-menu-item>
+            <el-menu-item index="4-6" v-on:click="goSon('/personal/useMemoTest')">useMemoTest测试</el-menu-item>
+            <el-menu-item index="4-7" v-on:click="goSon('/personal/useReducerTest')">useReducer测试</el-menu-item>
+            <el-menu-item index="4-20" v-on:click="goSon('/personal/080988')">personal error</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="5">
             <template #title>
               <span>vitevue页面</span>
             </template>
-            <el-menu-item index="5-1" v-on:click="goSon('/portal/vitevue/login')">子应用间路由传参</el-menu-item>
+            <el-menu-item index="5-1" v-on:click="goSon('/vitevue/login')">子应用间路由传参</el-menu-item>
            
           </el-sub-menu>
         </el-menu>
       </div>
       <div id="qiankunContainer" class="main">
         <router-view class="router-app"> </router-view>
-        <div id="yourContainer" class="qiankun-app"></div>
-        <div id="yourContainer1" class="qiankun-app"></div>
-        <div id="yourContainer2" class="qiankun-app"></div>
-        <div id="yourContainer3" class="qiankun-app"></div>
+        <!-- <div id="system" class="qiankun-app"></div>
+        <div id="customer" class="qiankun-app"></div>
+        <div id="personal" class="qiankun-app"></div>
+        <div id="vitevue" class="qiankun-app"></div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {addQiankunItemRouter} from './../../router';
 import { useRouter,onBeforeRouteUpdate } from 'vue-router'
 import { onMounted, nextTick, computed } from 'vue';
 import { useStore } from "@/hooks/store"
@@ -88,7 +89,7 @@ let loadingInstance: any = null
 
 onBeforeRouteUpdate((to, from) => { 
   // console.log(to)
-   checkRouter(appList,to.fullPath,to.name);
+  //  checkRouter(appList,to.fullPath,to.name);
 })
 
 onMounted(() => {
@@ -108,6 +109,9 @@ onMounted(() => {
 const getAPPList = () => { 
   API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
+    appList.forEach((item:any) => {
+      addQiankunItemRouter(item.name)
+    });
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})
     });

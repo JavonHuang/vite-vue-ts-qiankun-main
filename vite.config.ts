@@ -7,13 +7,11 @@ export default ({ mode }) => {
   return defineConfig({
     base: '',
     server: {
-      port:3001,
+      port: 3001,
+      open:"/#/login",
       cors:{
         origin:true,
         allowedHeaders:['Access-Control-Allow-Origin,*'],
-      },
-      fs:{
-        strict:false
       }
     },
     resolve:{

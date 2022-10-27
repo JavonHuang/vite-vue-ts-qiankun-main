@@ -2,25 +2,33 @@ import {createRouter,RouteRecordRaw,createWebHashHistory} from "vue-router"
 
 const routes:Array<RouteRecordRaw>=[
   {
-    path:"/",
+    path:"/login",
     name:"login",
     component:()=>import('./page/login.vue')
   },
   {
-    path:"/portal/:chapters*",
+    path:"/",
     name:"portal",
     component:()=>import('./page/portal/portal.vue'),
     children: [
       {
-        path:"/portal/main",
+        path:"/main",
         name:"main",
         component:()=>import('./page/portal/main.vue'),
       },
       {
-        path:"/portal/home",
+        path:"/home",
         name:"home",
         component:()=>import('./page/home/home.vue'),
       },
+    ]
+  },
+  {
+    path:"/vitevue/:chapters*",
+    name:"vitevue",
+    component:()=>import('./page/portal/portal.vue'),
+    children: [
+      
     ]
   },
   {
@@ -43,4 +51,21 @@ const router = createRouter({
   routes,
 })
 
-export {routes, router }
+const addQiankunItemRouter = (path:string) => { 
+  router.addRoute({
+    path:`/${path}/:chapters*`,
+    name:path,
+    component:()=>import('./page/portal/portal.vue'),
+    children: [
+      {
+        path:`/${path}/:pathMatch(.*)`,
+        redirect: '/404'
+      }
+    ]
+  })
+  router.addRoute( {
+    path:`/${path}/:pathMatch(.*)`,
+    redirect: '/404'
+  })
+}
+export {routes, router,addQiankunItemRouter}

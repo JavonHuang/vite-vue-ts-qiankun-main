@@ -10,7 +10,6 @@ interface IAPP {
   name: string,
   entry: string,
   container:string,
-  mainRouterPath: string,
   isFirst:Boolean,
 }
 export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void) => {
@@ -24,17 +23,13 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
     appList.push({
       name: item.name,
       entry: item.entry,
-      container: item.container,
+      container: `#qiankun_item_${item.name}`,
       props: {
-        mainRouterPath: item.mainRouterPath,
+        mainRouterPath:`/${item.name}`,
         getGlobalState: qiankunStore.getGlobalState,
-        errorRouter: '/404',
-        recordRouterPath: (arrayPath: Array<string>) => {
-          console.log(arrayPath)
-        }
       },
       activeRule: (e: Location) => {
-        if ( e.hash.includes(item.mainRouterPath) && item.isFirst) { 
+        if ( e.hash.includes(`/${item.name}`) && item.isFirst) { 
           loadingInstance = ElLoading.service({
             fullscreen: true,
             lock: true,
@@ -57,14 +52,14 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
           }
           addGlobalUncaughtErrorHandler(errorFunction[item.name])
         }
-        return e.hash.includes(item.mainRouterPath);
+        return e.hash.includes(`/${item.name}`);
       },
     })
-    // let dom = document.createElement('div');
-    // dom.classList.add('qiankun-app')
-    // dom?.setAttribute('style', 'display:none')
-    // dom?.setAttribute('id',item.container.replace('#', ''))
-    // domMain?.append(dom)
+    let dom = document.createElement('div');
+    dom.classList.add('qiankun-app')
+    dom?.setAttribute('style', 'display:none')
+    dom?.setAttribute('id',`qiankun_item_${item.name}`)
+    domMain?.append(dom)
   })
 
   registerMicroApps([...appList], {
@@ -72,7 +67,7 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
       console.log('beforeLoad',app)
     }],
     beforeMount: [async (app: any) => { 
-      let dom = document.getElementById(app.container.replace('#', ''));
+      let dom = document.getElementById(`qiankun_item_${app.name}`);
       dom?.setAttribute('style','display:block');
     }],
     afterMount: [async (app: any) => { 
@@ -82,7 +77,7 @@ export const initQiankun = (store:StoreUtil,list:Array<IAPP>,error:(e:any)=>void
       }
     }],
     afterUnmount: [async (app: any) => { 
-      let dom = document.getElementById(app.container.replace('#',''));
+      let dom = document.getElementById(`qiankun_item_${app.name}`);
       dom?.setAttribute('style','display:none')
     }],
   });
