@@ -12,14 +12,6 @@ window.addRouter = (r:any) => {
   
 }
 
-//校验路由
-router.beforeEach((to, from) => {
-  if (!to.name) {
-    return { name: '404' }
-  } else { 
-    return true
-  }
-})
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)

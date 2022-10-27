@@ -72,8 +72,8 @@
 </template>
 
 <script setup lang="ts">
-import {addQiankunItemRouter} from './../../router';
-import { useRouter,onBeforeRouteUpdate } from 'vue-router'
+import {checkQiankunItemRouter} from './../../router';
+import { useRouter } from 'vue-router'
 import { onMounted, nextTick, computed } from 'vue';
 import { useStore } from "@/hooks/store"
 import {initQiankun} from '@/qiankun'
@@ -87,11 +87,6 @@ const isLogin = computed(() => getters['loginModule/GettersIsLogin'])
 let appList:any=[]
 let loadingInstance: any = null
 
-onBeforeRouteUpdate((to, from) => { 
-  // console.log(to)
-  //  checkRouter(appList,to.fullPath,to.name);
-})
-
 onMounted(() => {
   loadingInstance = ElLoading.service({
     fullscreen: true,
@@ -99,10 +94,7 @@ onMounted(() => {
     text: 'Loading',
     background: 'rgba(0, 0, 0, 0.7)',
   })
-
-  nextTick(() => { 
-    getAPPList();
-  })
+  getAPPList();
 })
 
 //远程获取需要注册的微应用
@@ -110,29 +102,16 @@ const getAPPList = () => {
   API.getAPPList({}).then(({ data: { models = [] } }) => { 
     appList = models;
     appList.forEach((item:any) => {
-      addQiankunItemRouter(item.name)
+      checkQiankunItemRouter(item.name)
     });
     initQiankun(store, models, (e:any) => { 
       router.push({ name: '404', params: e})
     });
     loadingInstance.close();
     commit('globalModule/GppList',appList)
-    checkRouter(appList,router.currentRoute.value.fullPath,router.currentRoute.value.name);
-    
   })
 }
 
-//校验路由
-const checkRouter = (models:[], fullPath: string, name: any) => { 
-  let result = models.some((item: any) => {
-    let regStr = (item.mainRouterPath+"/").replace(/\//g, '\\\/');
-      let reg = eval(`/^(${regStr})/`);
-      return reg.test(fullPath)
-  })
-  if (!result && (!name||name==='portal')) { 
-    router.push({ path: '/404',replace:true})
-  }
-}
 
 const goSon = (url:any) => {
   router.push({ 

@@ -1,4 +1,6 @@
 import {createRouter,RouteRecordRaw,createWebHashHistory} from "vue-router"
+//预设路由，用于解决刷新，首次无法获取到路由
+const presetPath = ['system', 'customer', 'personal', 'vitevue']
 
 const routes:Array<RouteRecordRaw>=[
   {
@@ -28,7 +30,7 @@ const routes:Array<RouteRecordRaw>=[
     name:"vitevue",
     component:()=>import('./page/portal/portal.vue'),
     children: [
-      
+      //动态路由
     ]
   },
   {
@@ -51,7 +53,7 @@ const router = createRouter({
   routes,
 })
 
-const addQiankunItemRouter = (path:string) => { 
+const addQiankunItemRouter = (path: string) => { 
   router.addRoute({
     path:`/${path}/:chapters*`,
     name:path,
@@ -64,8 +66,22 @@ const addQiankunItemRouter = (path:string) => {
     ]
   })
   router.addRoute( {
-    path:`/${path}/:pathMatch(.*)`,
+    path: `/${path}/:pathMatch(.*)`,
+    name:`404_${path}`,
     redirect: '/404'
   })
 }
-export {routes, router,addQiankunItemRouter}
+
+presetPath.forEach(item => {
+  addQiankunItemRouter(item)
+})
+
+const checkQiankunItemRouter = (path: string) => { 
+  let index = presetPath.findIndex(item => path == item)
+  if (index == -1) { 
+    router.removeRoute(path)
+    router.removeRoute(`404_${path}`)
+  }
+}
+
+export {routes, router,checkQiankunItemRouter}

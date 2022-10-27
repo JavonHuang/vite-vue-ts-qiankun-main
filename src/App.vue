@@ -28,16 +28,16 @@ const checkRouter = (models:[], fullPath: string, name: any) => {
   return true;
 }
 
-///路由守卫
-router.beforeEach((to, from, next) => {
-  console.log(checkRouter(appList.value, to.fullPath, to.name))
-  // if (checkRouter(appList.value, to.fullPath, to.name)) {
-  //   next()
-  // } else { 
-  //   router.push({ path: '/404',replace:true})
-  // }
-  next()
-})
+// ///路由守卫
+// router.beforeEach((to, from, next) => {
+//   console.log(checkRouter(appList.value, to.fullPath, to.name))
+//   // if (checkRouter(appList.value, to.fullPath, to.name)) {
+//   //   next()
+//   // } else { 
+//   //   router.push({ path: '/404',replace:true})
+//   // }
+//   // next()
+// })
 
 onBeforeMount(()=>{
   API.getLibList({}).then(({ data: { models = [] } }) => {
